@@ -4,10 +4,11 @@ import bcrypt
 from .security import encrypt, decrypt
 from datetime import datetime, timedelta
 from bson.objectid import ObjectId
+import env
 
 class Authenticator:
     def __init__(self):
-        self.db = pymongo.MongoClient("mongodb://172.17.0.1:27017/")["focussnap"]
+        self.db = pymongo.MongoClient(f'mongodb://{env.databaseIP}/:27017')["focussnap"]
 
 
     def hash_password(self, password):
