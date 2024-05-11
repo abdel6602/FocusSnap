@@ -47,7 +47,7 @@ def signup_end_point():
             "message": str(error)
         }, 400
 
-@app.route('/api/auth/login', methods = ['GET','POST'])
+@app.route('/api/auth/login', methods = ['POST'])
 def login_end_point():
     status, error = authenticator.login(str(request.json['email']), str(request.json['password']))
     if status == True:

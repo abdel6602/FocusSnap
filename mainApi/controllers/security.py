@@ -1,13 +1,14 @@
 from cryptography.fernet import Fernet
 import pymongo
+import env 
 
 def get_key():
-    key = pymongo.MongoClient("mongodb://172.17.0.1:27017/")["focussnap"]["key"].find_one()
+    key = pymongo.MongoClient(f'mongodb://{env.databaseIP}:27017/')["focussnap"]["key"].find_one()
     if key:
         return key['key']
     else:
         key = Fernet.generate_key()
-        pymongo.MongoClient("mongodb://172.17.0.1:27017/")["focussnap"]["key"].insert_one({"key": key})
+        pymongo.MongoClient(f'mongodb://{env.databaseIP}:27017/')["focussnap"]["key"].insert_one({"key": key})
         return key
     
 
